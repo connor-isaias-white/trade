@@ -1,0 +1,35 @@
+html {
+    background: url("../images/background-stock1.jpg") no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    background-color: #eeeeee;
+}
+
+html,
+body {
+    background-color: rgba(0, 0, 0, 0.1);
+    height: 100%;
+}
+
+.container {
+    height: 100%;
+}
+
+.stock {
+    background-color: rgba(29, 185, 81, 0.9);
+}
+
+.bg-primary {
+    background-color: rgba(0, 77, 165, 0.9);
+}
+
+.bg-secondary {
+    background-color: rgba(49, 49, 49, 0.9);
+}
+
+.stock img {
+    height: 10%;
+    width: 10%;
+}

@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+{% block app_content %}
+<div class="p-3 mb-2 bg-dark">
+    <div class="stock">
+        <h3>Apple</h3>
+        <img src="https://www.apple.com/ac/structured-data/images/knowledge_graph_logo.png?201606271147" class="img-fluid ${3|rounded-top,rounded-right,rounded-bottom,rounded-left,rounded-circle,|}" alt="apple logo">
+        <button type="button" class="btn btn-danger">sell</button>
+        <button type="button" class="btn btn-success">buy</button>
+    </div>
+</div>
+{% endblock %}
