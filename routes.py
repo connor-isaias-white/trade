@@ -6,7 +6,6 @@ from user import user
 
 @app.route("/name", methods=['GET', 'POST'])
 def name():
-    session['player'] = {}
     form = nameform()
     if form.validate():
         name = form.name.data
