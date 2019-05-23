@@ -3,5 +3,5 @@ from flask_wtf import FlaskForm
 
 
 class nameform(FlaskForm):
-    name = TextField('Name:', validators=[validators.required()])
+    name = TextField('Name:')
     submit = SubmitField("Submit")

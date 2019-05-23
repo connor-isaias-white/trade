@@ -10,15 +10,51 @@ html {
 html,
 body {
     background-color: rgba(0, 0, 0, 0.1);
-    height: 100%;
+    position: absolute;
+    bottom: 0;
+    top: 0px;
+    right: 0px;
+}
+
+.error {
+    -webkit-text-fill-color: transparent;
 }
 
 .container {
-    height: 100%;
+    min-height: 100%;
+}
+
+.stocks {
+    width: 100%;
+    background-color: rgba(29, 185, 81, 0.9);
+    padding: 3%;
+    border-radius: 30px;
 }
 
 .stock {
-    background-color: rgba(29, 185, 81, 0.9);
+    background-color: rgba(29, 185, 159, 0.9);
+    padding: 2%;
+    margin-top: none;
+    border-radius: 30px;
+}
+
+.stocks h1 {
+    text-align: center
+}
+
+.stock h1 {
+    border-radius: 15px;
+    background-color: #eeeeee;
+    color: #000000;
+    text-align: center;
+}
+
+.title {
+    text-decoration: underline;
+    border-radius: 20px;
+    background-color: #eeeeee;
+    color: #000000;
+    text-align: center;
 }
 
 .bg-primary {
@@ -30,6 +66,6 @@ body {
 }
 
 .stock img {
-    height: 10%;
-    width: 10%;
+    height: 15%;
+    width: 15%;
 }
