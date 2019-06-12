@@ -2,27 +2,43 @@ import requests
 from config import Config
 import clearbit
 import json
+from compdic import cool_dic
 
 
 class stock:
 
     def __init__(self, comp):
         self.comp = comp
-        self.tick = self.ticker()
+        try:
+            self.tick = self.ticker(False)
+            self.price = self.current_price()
+        except Exception:
+            self.tick = self.ticker(True)
+            self.price = self.current_price()
 
     def info(self):
         inf = {
             "logo": self.lookup()["logo"],
             "name": self.comp.title(),
-            "price": self.current_price()
+            "price": self.price
         }
         return inf
 
-    def ticker(self):
+    def ticker(self, useDict):
         clearbit.key = Config["logopi"]["secret"]
         domain = self.lookup()["domain"]
-        company = clearbit.Company.find(domain=domain)
-        return company["ticker"]
+        headers = {'Content-Type': 'application/json',
+                   'Authorization': 'Bearer {0}'.format(clearbit.key)}
+        r = requests.get(
+            "https://company.clearbit.com/v2/companies/find?domain="+domain, headers=headers, verify=False).json()
+        print("\n\n\n\n\n\n")
+        if useDict:
+            tick = cool_dic[r['legalName'].replace(
+                ",", "").replace(".", "").upper().replace("CORPORATION", "CORP")]
+        else:
+            tick = r['ticker']
+        print(tick)
+        return tick.lower()
 
     def lookup(self):
         clearbit.key = Config["logopi"]["secret"]
@@ -34,6 +50,7 @@ class stock:
 
     def current_price(self):
         headers = "?token="+Config["tradpi"]["token"]
+        print(self.tick)
         canonical_uri = f'/stable/stock/{self.tick}/price'
         endpoint = "https://cloud.iexapis.com" + canonical_uri + headers
         r = requests.get(endpoint, verify=False).json()
@@ -50,4 +67,3 @@ class stock:
 
 if __name__ == "__main__":
     hi = stock("apple")
-    print(hi.logo())

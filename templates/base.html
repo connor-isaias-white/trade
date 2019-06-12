@@ -1,37 +1,46 @@
 {% extends "bootstrap/base.html" %}
+{% block html_attribs %}
+    style="background: url('{{url_for('.static', filename='images/'+title+'.jpg')}}') no-repeat center center fixed;"
+{% endblock html_attribs %}
+
 {% block styles %}
+    <link rel="shortcut icon" href="{{ url_for('static', filename='icon/favicon.ico') }}">
     {{super()}}
     <!--<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">-->
     <link rel="stylesheet"
         href="{{url_for('.static', filename='css/style.css')}}">
+        <link href="https://fonts.googleapis.com/css?family=Fira+Mono:500&display=swap" rel="stylesheet">
 {% endblock %}
 {% block scripts %}
+    <script src="{{url_for('.static', filename='js/game.js')}}" crossorigin="anonymous"></script>
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
     {{super()}}
 {% endblock %}
 
 {% block title %}{% if title %}{{title}}- Trading game{% else %}Trading game{% endif %}{% endblock %}
-
 {% block content %}
-  <div class="container bg-secondary">
-        <br>
-        {% with messages = get_flashed_messages() %}
+
+<div class="container bg-secondary">
+<div class=" bg-dark">
+    {% with messages = get_flashed_messages() %}
         {% if messages %}
             {% for message in messages %}
             <div class="alert alert-info" role="alert">{{ message }}</div>
             {% endfor %}
         {% endif %}
-        {% endwith %}
+    {% endwith %}
 
-        {# application content needs to be provided in the app_content block #}
-        <div class="p-3 mb-2 bg-dark">
             <div class="title col-md-4 col-md-offset-4">
                 <h1>{% if title %}{{title}}{% else %}Trading game{% endif %}</h1>
             </div>
-
+        <br><br><br><br><br><br>
+        {# application content needs to be provided in the app_content block #}
+            {{nav.mynavbar.render()}}
             {% block app_content %}{% endblock %}
         </div>
     </div>
 {% endblock %}
+</html>
