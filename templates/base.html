@@ -1,8 +1,10 @@
+{# connect to bootstrap #}
 {% extends "bootstrap/base.html" %}
+{# change background depending on the locatoin #}
 {% block html_attribs %}
     style="background: url('{{url_for('.static', filename='images/'+title+'.jpg')}}') no-repeat center center fixed;"
 {% endblock html_attribs %}
-
+{# connect to all the css files and script files #}
 {% block styles %}
     <link rel="shortcut icon" href="{{ url_for('static', filename='icon/favicon.ico') }}">
     {{super()}}
@@ -19,12 +21,12 @@
 
     {{super()}}
 {% endblock %}
-
+{# if there is a title, put it in #}
 {% block title %}{% if title %}{{title}}- Trading game{% else %}Trading game{% endif %}{% endblock %}
 {% block content %}
 
-<div class="container bg-secondary">
-<div class=" bg-dark">
+{# this is the black container #}
+<div class="container bg-secondary bg-dark">
     {% with messages = get_flashed_messages() %}
         {% if messages %}
             {% for message in messages %}
@@ -40,7 +42,6 @@
         {# application content needs to be provided in the app_content block #}
             {{nav.mynavbar.render()}}
             {% block app_content %}{% endblock %}
-        </div>
     </div>
 {% endblock %}
 </html>

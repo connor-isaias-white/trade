@@ -7,6 +7,7 @@ def mynavbar():
     return Navbar(
         'Trade Game',
         View('Home', 'index'),
+        View('Game', 'location', country="Australia"),
         View('Stocks', 'nyse'),
         View('Name', 'name')
     )

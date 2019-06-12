@@ -35,21 +35,20 @@ def location(country):
     countries = ["China", "Australia", "France", "America", "England"]
     nextLoc = countries[countries.index(country)-1]
     try:
-        session['player']["money"] = session['player']["money"]-1
-        session['player']['day'] = session['player']['day']+1
         for i in range(len(session['items'])):
             session['items'][i]['price'] = items().update_price(
                 session['items'][i]['price'])
+        session["money"] -= 1
+        session['day'] += 1
     except KeyError as e:
         print(e)
-        session['player'] = {}
-        session['player']["money"] = 5000
-        session['player']['day'] = 1
+        session['money'] = 5000
+        session['day'] = 1
         listOfItems = []
         for i in range(8):
             listOfItems.append(items().create())
         session['items'] = listOfItems
-    return render_template("location.html", title=country, player=session['player'], items=session['items'], nextLoc=nextLoc)
+    return render_template("location.html", title=country, session=session, nextLoc=nextLoc)
 
 
 @app.route("/", methods=['GET', 'POST'])
