@@ -9,5 +9,6 @@ def mynavbar():
         View('Home', 'index'),
         View('Game', 'location', country="Australia"),
         View('Stocks', 'nyse'),
-        View('Name', 'name')
+        View('Name', 'name'),
+        View('Universe', 'universe')
     )

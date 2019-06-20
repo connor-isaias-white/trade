@@ -1,0 +1,475 @@
+body {
+  margin: 0 auto;
+
+  cursor: auto;
+
+  color: #cccccc;
+  background-color: #141414;
+  background-image: url("background.jpg");
+  background-size: 100% 1800px;
+
+  font-family: sans-serif;
+
+}
+
+.navbar {
+  background-color: rgba(15, 15, 15, 0.6);
+  border-color: rgba(219, 214, 214, 0.4);
+}
+
+button {
+  cursor: pointer;
+}
+
+#container {
+  width: 50%;
+  min-width: 590px;
+  height: 2125px;
+  margin: auto;
+  margin-right: 25%;
+  margin-left: 25%;
+
+  background-color: rgba(40, 40, 40, 0.92);
+}
+
+#context {
+  margin: 50px;
+  margin-left: 95px;
+}
+
+.sidebar ul {
+  margin: 40px 40px 40px 0px;
+
+  list-style: none;
+}
+
+.sidebar li {
+  padding: 1px 0px;
+}
+
+.sidebar {
+  position: fixed;
+
+  border-radius: 25px;
+  background-color: rgba(61, 61, 61, 0.45);
+}
+
+h1 {
+  padding-top: 25px;
+
+  animation-name: slowChangeColour;
+  animation-duration: 600s;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+  text-align: center;
+
+  background-color: rgba(54, 54, 54, 0.3);
+
+  font-size: 75px;
+}
+
+#cat h1,
+#interesting h1 {
+  animation-duration: 10s;
+}
+
+#homepage {
+  animation-duration: 50s;
+}
+
+h1:hover,
+#cat h1:hover,
+#interesting h1:hover {
+  animation-duration: 3s;
+
+  background-color: rgba(33, 33, 33, 0.7);
+}
+
+@keyframes slowChangeColour {
+  0% {
+    color: #ff0000
+  }
+
+  4.3% {
+    color: #ff4000
+  }
+
+  8.6% {
+    color: #ff8000
+  }
+
+  12.9% {
+    color: #ffbf00
+  }
+
+  17.2% {
+    color: #ffff00
+  }
+
+  21.5% {
+    color: #bfff00
+  }
+
+  25.8% {
+    color: #80ff00
+  }
+
+  30.1% {
+    color: #40ff00
+  }
+
+  34.4% {
+    color: #00ff00
+  }
+
+  38.7% {
+    color: #00ff40
+  }
+
+  43% {
+    color: #00ff80
+  }
+
+  47.3% {
+    color: #00ffbf
+  }
+
+  51.6% {
+    color: #00ffff
+  }
+
+  55.9% {
+    color: #00bfff
+  }
+
+  60.2% {
+    color: #0080ff
+  }
+
+  64.5% {
+    color: #0040ff
+  }
+
+  68.8% {
+    color: #0000ff
+  }
+
+  73.1% {
+    color: #4000ff
+  }
+
+  77.4% {
+    color: #8000ff
+  }
+
+  81.7% {
+    color: #bf00ff
+  }
+
+  86% {
+    color: #ff00ff
+  }
+
+  90.3% {
+    color: #ff00bf
+  }
+
+  94.6% {
+    color: #ff0080
+  }
+
+  100% {
+    color: #ff0040
+  }
+}
+
+.aim {
+  color: #d0d926;
+
+  font-size: 25px;
+}
+
+.color1 {
+  display: inline;
+
+  color: #d9b726;
+
+  font-size: 25px;
+
+}
+
+.white {
+  display: inline;
+
+  color: #f7e898;
+
+  font-size: 25px;
+}
+
+#context .BronzeColour {
+  margin-top: 25px;
+  padding-bottom: 15px;
+
+  text-align: center;
+
+  color: #fb8c32;
+
+  font-size: 40px;
+
+}
+
+#context .PlutoniumColour {
+  margin-top: 50px;
+  padding-bottom: 15px;
+
+  text-align: center;
+
+  color: #00c0c6;
+
+  font-size: 40px;
+}
+
+#context .VibraniumColour {
+  margin-top: 50px;
+  padding-bottom: 15px;
+
+  text-align: center;
+
+  color: #4aff00;
+
+  font-size: 40px;
+}
+
+#context .LathrixiumColour {
+  margin-top: 50px;
+  padding-bottom: 15px;
+
+  text-align: center;
+
+  color: #ff8a8a;
+
+  font-size: 40px;
+}
+
+#context .FoodColour {
+  margin-top: 50px;
+  padding-bottom: 15px;
+
+  text-align: center;
+
+  color: #957d36;
+
+  font-size: 40px;
+}
+
+ul .BronzeColour {
+  padding-top: 5px;
+
+  color: #c8722d;
+}
+
+ul .PlutoniumColour {
+  padding-top: 5px;
+
+  color: #00c0c6;
+}
+
+ul .VibraniumColour {
+  padding-top: 5px;
+
+  color: #4aff00;
+}
+
+ul .LathrixiumColour {
+  padding-top: 5px;
+
+  color: #ff8a8a;
+}
+
+ul .FoodColour {
+  padding-top: 5px;
+
+  color: #957d36;
+}
+
+ul .HungerColour {
+  padding-top: 5px;
+
+  color: #7e0b0b;
+}
+
+#sellAndBuy {
+  margin-top: -25px;
+  padding-left: 200px;
+}
+
+#otherThings {
+  width: 340px;
+  height: 225px;
+  margin-top: 50px;
+  margin-left: 100px;
+
+  text-align: center;
+
+  border-radius: 25px;
+  background-color: rgba(36, 36, 36, 0.4);
+
+  font-size: 23px;
+}
+
+#sell,
+#buy {
+  font-size: 20px;
+
+}
+
+#Buttontype1 button,
+#Buttontype2 button,
+#materials button,
+#homepage button {
+  width: 106.6666666666666666px;
+  height: 42px;
+  margin-left: 0px;
+
+  text-align: center;
+
+  background-color: rgba(14, 14, 14, 0.5);
+
+  font-size: 17px;
+}
+
+#Buttontype1 button,
+#sell button {
+  color: #5ac82d;
+
+}
+
+#Buttontype2 button,
+#buy button {
+  color: #c8442d;
+}
+
+#sell {
+  color: #24eb20;
+}
+
+#buy {
+  color: #de3525;
+}
+
+#hello {
+  width: 530px;
+
+  text-align: center;
+}
+
+#container2 {
+  margin-right: -5px;
+  margin-left: -50px;
+  padding-bottom: 50px;
+
+  border-radius: 50px;
+  background-color: rgba(54, 54, 54, 0.6);
+}
+
+#materials {
+  margin-right: 5px;
+  margin-left: 50px;
+
+}
+
+#container3 {
+  height: 230px;
+  margin-right: 25px;
+  margin-left: -25px;
+
+  border-radius: 25px;
+  background-color: rgba(68, 68, 68, 0.3);
+
+}
+
+#container4 {
+  margin-left: 25px;
+}
+
+#Buttontype1,
+#Buttontype2 {
+  display: inline;
+}
+
+#otherOtherThings {
+  padding-top: 1px;
+}
+
+.moneyColour {
+  display: inline;
+
+  color: #008c3a;
+}
+
+a {
+  text-decoration: none;
+
+}
+
+#homepage {
+  text-align: center;
+}
+
+#homepage button {
+  width: 600px;
+  height: 300px;
+  text-shadow: 3px 3px #1b012f;
+  margin-top: 10px;
+  margin-bottom: 50px;
+
+  font-size: 125px;
+}
+
+#homepage #container {
+  height: 1620px;
+  ;
+}
+
+#homepage #container2 {
+  width:
+}
+
+.Game a button {
+  color: #24eb20;
+  text-shadow: 3px 3px #142f01;
+}
+
+.Calculator a button {
+  color: rebeccapurple;
+}
+
+.Interesting a button {
+  color: #0892e9;
+  text-shadow: 3px 3px #012b2f;
+}
+
+.Cat a button {
+  color: #cdc554;
+  text-shadow: 3px 3px #2f2d01;
+}
+
+#Buttontype1 button:hover,
+#Buttontype2 button:hover,
+#materials button:hover,
+#homepage button:hover {
+  background-color: rgba(14, 14, 14, 0.8);
+}
+
+#interesting #container,
+#cat #container {
+  height: 100%;
+}
+
+#interesting img {
+  margin-left: 50px;
+}
+
+#cat img {
+  margin-left: 237.5px;
+}
