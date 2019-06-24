@@ -1,5 +1,3 @@
-function sell() {}
-
 // changes the data when you buy
 function trade(item, type) {
   var data = {};
@@ -22,6 +20,22 @@ function trade(item, type) {
     ).innerHTML = quantity.join().replace(",", " ");
   }
 }
+
+function bank(type) {
+  var data = {};
+  data.transaction = [$('#transamount').val(), type];
+  var msg = $.ajax({
+    type: "GET",
+    url: "/bank/" + JSON.stringify(data),
+    async: false
+  }).responseText;
+  console.log(msg)
+  if (msg == 'true') {
+    $('#AmountBank').text(parseInt($('#AmountBank').text()) + parseInt($('#transamount').val()) * parseInt(type));
+    $('#transamount').val(0);
+  }
+}
+
 
 var session = JSON.parse($.ajax({
   type: "GET",
@@ -87,7 +101,72 @@ for (var i = 0; i < session.length - 1; i++) {
       animation: {
         duration: 1000,
         easing: "easeInOutElastic"
+      },
+      scales: {
+        yAxes: [{
+          scaleLabel: {
+            display: true,
+            labelString: 'Cost ($)'
+          }
+        }],
+        xAxes: [{
+          scaleLabel: {
+            display: true,
+            labelString: 'Week'
+          }
+        }]
       }
     }
   });
 }
+
+var Interest = JSON.parse($.ajax({
+  type: "GET",
+  url: "/interest",
+  async: false
+}).responseText);
+
+new Chart(document.getElementById("bank-chart"), {
+  type: "line",
+  data: {
+    labels: [...Array(session[session.length - 1]['day']).keys()],
+    datasets: [{
+      data: Interest,
+      label: "Interest rate",
+      borderColor: "#3e95cd",
+      backgroundColor: "#3e95cd",
+      fill: false
+    }]
+  },
+  options: {
+    responsive: true,
+    title: {
+      display: true,
+      text: "Price"
+    },
+    legend: {
+      position: "right"
+    },
+    tooltips: {
+      mode: 'index'
+    },
+    animation: {
+      duration: 1000,
+      easing: "easeInOutElastic"
+    },
+    scales: {
+      yAxes: [{
+        scaleLabel: {
+          display: true,
+          labelString: 'rate (%)'
+        }
+      }],
+      xAxes: [{
+        scaleLabel: {
+          display: true,
+          labelString: 'Week'
+        }
+      }]
+    }
+  }
+});

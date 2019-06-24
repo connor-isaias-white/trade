@@ -2,6 +2,7 @@ import random
 import math
 
 # a class for interperating and changing the items to buy adn sell
+# this has basically just turned into a class where i put all my functions so my routes page is easier to understand
 
 
 class items:
@@ -66,6 +67,14 @@ class items:
                 break
         return price
 
+    def update_bank(self, bank):
+        # this should have a smaller change
+        bank['rate'].append(self.currency(
+            bank['rate'][-1]*random.uniform(0.95, 1.05)))
+        bank['amount'] = self.currency(
+            bank['amount']*((bank['rate'][-1]/100)/52 + 1))
+        return bank
+
     def random_line(self, afile):
         with open(afile) as f:
             line = random.choice(list(f))
@@ -84,3 +93,6 @@ class items:
             event = [event[0].replace(
                 "{}", item['name']), event[1],  item['name'], "food"]
         return event
+
+    def currency(self, num):
+        return int(num * 100) / 100

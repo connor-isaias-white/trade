@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% block app_content %}
 
-<h1 class = "info">Day {{ session['day']-1 }}/50 | Money:$<span id="money">{{ session['money'] }}</span> | <a id="nextday" onclick="update_button()" href="http://127.0.0.1:5000/location"><button type="button" class="btn btn-primary right">Next day</button></a></h1>
+<h1 class = "info">Week {{ session['day']-1 }}/50 | Money:$<span id="money">{{ session['money'] }}</span> | <a id="nextday" onclick="update_button()" href="http://127.0.0.1:5000/location"><button type="button" class="btn btn-primary right">Next day</button></a></h1>
 
     <div class="stocks" style="text-align: centre;">
         {# add all the items #}
@@ -24,16 +24,17 @@
                 <canvas id="{{ item['name'] }}-chart" style="background-color: white;"  width="490%" height="250"></canvas>
             </div>
         {% endfor %}
+        {# bank #}
         <div class="bank col-md-12">
                 <h1 style="text-align: center;">Bank</h1>
                 <img src="https://s3-ap-southeast-2.amazonaws.com/geg-gug-webapp/images/career/regular/bank_officer.png"          class="" alt="image of bank (check connection)">
                 <br>
-                <span style="display: inline-block;padding-right:10%;">
-                <h3 style="display: block;">Interest Rate: %<span id='Cost bank'>5</span></h3>
-                <h3 style="display: block;">Interest Rate: %<span id='Cost bank'>5</span></h3>
-                $<input type="text" oninput="this.value = this.value.replace(/[^0-9.]/g, ''); this.value = this.value.replace(/(\..*)\./g, '$1');" >
-                <button style="display: inline-block;" type="button" onclick="trade('', -1)" class="btn btn-danger">out</button>
-                <button type="button" class="btn btn-success" onclick="trade('', 1)">in</button>
+                <span style="display: inline-block;">
+                <h3 style="display: block;">Interest Rate: <span id='rate bank'>{{ session['bank']['rate'][-1] }}%pa</span></h3>
+                <h3 style="display: block;">Bank: $<span id='AmountBank'>{{ session['bank']['amount'] }}</span></h3>
+                $<input type="text" oninput="this.value = this.value.replace(/[^0-9.]/g, ''); this.value = this.value.replace(/(\..*)\./g, '$1');" id="transamount" >
+                <button style="display: inline-block;" type="button" onclick="bank(-1)" class="btn btn-danger">out</button>
+                <button type="button" class="btn btn-success" onclick="bank(1)">in</button>
                 </span>
                 <canvas id="bank-chart" style="background-color: white;"  width="500%" height="250"></canvas>
 

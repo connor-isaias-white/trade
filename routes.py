@@ -38,6 +38,7 @@ def location():
         session['day'] += 1
         session['daystr'] = str(session['day'])
         session['country'] = countries[countries.index(session['country'])-1]
+        session['bank'] = items(countries).update_bank(session['bank'])
         if random.random() <= 0.3:
             event = items(countries).random_event(session['items'])
             flash(event[0])
@@ -54,6 +55,8 @@ def location():
         session['money'] = 1000
         session['day'] = 1
         session['daystr'] = str(session['day'])
+        session['bank'] = {"amount": 0, "rate": [
+            int(random.uniform(3, 10) * 100) / 100]}
         listOfItems = []
         # amount of foods
         for i in range(6):
@@ -88,6 +91,12 @@ def givesession():
     return json.dumps(sess)
 
 
+@app.route('/interest', methods=['GET'])
+def giveinterest():
+    inter = session['bank']['rate']
+    return json.dumps(inter)
+
+
 @app.route('/trade/<data>', methods=['GET'])
 def worker(data):
     data = json.loads(data)
@@ -104,3 +113,18 @@ def worker(data):
             else:
                 return "false"
     return 'false'
+
+
+@app.route('/bank/<data>', methods=['GET'])
+def banking(data):
+    data = json.loads(data)
+    if int(data['transaction'][0])*int(data['transaction'][1]) < int(session["money"]):
+        print(session['bank']['amount'])
+        session['bank']['amount'] += int(data['transaction'][0]) * \
+            int(data['transaction'][1])
+        session['bank'] = {"amount": session['bank']
+                           ['amount'], "rate": session['bank']["rate"]}
+        print(session['bank']['amount'])
+        return 'true'
+    else:
+        return 'false'
