@@ -3,6 +3,7 @@ from flask import render_template, flash, redirect, url_for, request, session
 from forms import nameform
 from stocks import stock
 from items import items
+import random
 import json
 import sys
 
@@ -30,20 +31,26 @@ def nyse():
     return render_template("location.html", title="The Stock Exchange", items=comps)
 
 
-@app.route("/location/<country>", methods=['GET', 'POST'])
-def location(country):
+@app.route("/location")
+def location():
     countries = ["China", "Australia", "France", "America", "England"]
-    nextLoc = countries[countries.index(country)-1]
-    session['country'] = country
-
     try:
         session['day'] += 1
         session['daystr'] = str(session['day'])
+        session['country'] = countries[countries.index(session['country'])-1]
+        if random.random() <= 0.3:
+            event = items(countries).random_event(session['items'])
+            flash(event[0])
+        else:
+            event = False
         for i in range(len(session['items'])):
+            item = list(session['items'][i].keys())[1]
             session['items'][i]['price'] = items(countries).update_price(
-                session['items'][i]['price'], session['daystr'])
+                session['items'][i]['price'], session['daystr'], event, item)
     except KeyError as e:
+        # first load
         print(f"key error: {e}")
+        session['country'] = "China"
         session['money'] = 1000
         session['day'] = 1
         session['daystr'] = str(session['day'])
@@ -52,7 +59,11 @@ def location(country):
         for i in range(6):
             listOfItems.append(items(countries).create())
         session['items'] = listOfItems
-    return render_template("location.html", title=country, session=session, nextLoc=nextLoc)
+    if session['day'] >= 52:
+        return "Game over"
+    else:
+        nextLoc = countries[countries.index(session['country'])-1]
+        return render_template("location.html", title=session['country'], session=session, nextLoc=nextLoc)
 
 
 @app.route("/", methods=['GET', 'POST'])
@@ -72,7 +83,9 @@ def universe():
 
 @app.route('/session', methods=['GET'])
 def givesession():
-    return json.dumps(session['items'])
+    sess = session['items']
+    sess.append({'day': session['day']})
+    return json.dumps(sess)
 
 
 @app.route('/trade/<data>', methods=['GET'])
@@ -80,8 +93,8 @@ def worker(data):
     data = json.loads(data)
     for i in session['items']:
         if i['name'] == data['transaction'][0]:
-            if session['money'] >= i['price'][session['country']][str(session["day"])]*data['transaction'][1]:
-                session['money'] -= i['price'][session['country']][str(session["day"])] * \
+            if session['money'] >= i['price'][session['country']][-1]*data['transaction'][1]:
+                session['money'] -= i['price'][session['country']][-1] * \
                     data['transaction'][1]
                 if i['quantity']+data['transaction'][1] >= 0:
                     i['quantity'] += data['transaction'][1]
@@ -91,8 +104,3 @@ def worker(data):
             else:
                 return "false"
     return 'false'
-
-
-@app.route("/test")
-def test():
-    return render_template("test.html", title="Testing")

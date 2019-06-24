@@ -23,56 +23,70 @@ function trade(item, type) {
   }
 }
 
-var session = $.ajax({
+var session = JSON.parse($.ajax({
   type: "GET",
   url: "/session",
   async: false
-}).responseText;
-session.foreach(makechart);
+}).responseText);
 
 
-function makechart(item) {
-  new Chart(document.getElementById("line-chart"), {
+for (var i = 0; i < session.length - 1; i++) {
+  new Chart(document.getElementById(session[i]["name"] + "-chart"), {
     type: "line",
     data: {
-      labels: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
+      labels: [...Array(session[session.length - 1]['day']).keys()],
       datasets: [{
-          data: [86, 114, 106, 106, 107, 111, 133, 221, 783, 2478],
+          data: session[i]["price"]["China"],
           label: "China",
           borderColor: "#3e95cd",
+          backgroundColor: "#3e95cd",
           fill: false
         },
         {
-          data: [282, 350, 411, 502, 635, 809, 947, 1402, 3700, 5267],
+          data: session[i]["price"]["Australia"],
           label: "Australia",
           borderColor: "#8e5ea2",
+          backgroundColor: "#8e5ea2",
           fill: false
         },
         {
-          data: [168, 170, 178, 190, 203, 276, 408, 547, 675, 734],
+          data: session[i]["price"]["France"],
           label: "France",
           borderColor: "#3cba9f",
+          backgroundColor: "#3cba9f",
           fill: false
         },
         {
-          data: [40, 20, 10, 16, 24, 38, 74, 167, 508, 784],
+          data: session[i]["price"]["America"],
           label: "America",
           borderColor: "#e8c3b9",
+          backgroundColor: "#e8c3b9",
           fill: false
         },
         {
-          data: [6, 3, 2, 2, 7, 26, 82, 172, 312, 433],
+          data: session[i]["price"]["England"],
           label: "England",
           borderColor: "#c45850",
+          backgroundColor: "#c45850",
           fill: false
         }
       ]
     },
     options: {
-      responsive: false,
+      responsive: true,
       title: {
         display: true,
         text: "Price"
+      },
+      legend: {
+        position: "right"
+      },
+      tooltips: {
+        mode: 'index'
+      },
+      animation: {
+        duration: 1000,
+        easing: "easeInOutElastic"
       }
     }
   });
