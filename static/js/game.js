@@ -33,6 +33,7 @@ function bank(type) {
   if (msg == 'true') {
     $('#AmountBank').text(parseInt($('#AmountBank').text()) + parseInt($('#transamount').val()) * parseInt(type));
     $('#transamount').val(0);
+    $('#money').text(parseInt($('#money').text()) - parseInt($('#transamount').val()) * parseInt(type));
   }
 }
 

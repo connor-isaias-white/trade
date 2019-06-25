@@ -31,13 +31,11 @@ class stock:
                    'Authorization': 'Bearer {0}'.format(clearbit.key)}
         r = requests.get(
             "https://company.clearbit.com/v2/companies/find?domain="+domain, headers=headers, verify=False).json()
-        print("\n\n\n\n\n\n")
         if useDict:
             tick = cool_dic[r['legalName'].replace(
                 ",", "").replace(".", "").upper().replace("CORPORATION", "CORP")]
         else:
             tick = r['ticker']
-        print(tick)
         return tick.lower()
 
     def lookup(self):
@@ -50,7 +48,6 @@ class stock:
 
     def current_price(self):
         headers = "?token="+Config["tradpi"]["token"]
-        print(self.tick)
         canonical_uri = f'/stable/stock/{self.tick}/price'
         endpoint = "https://cloud.iexapis.com" + canonical_uri + headers
         r = requests.get(endpoint, verify=False).json()

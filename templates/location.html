@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% block app_content %}
 
-<h1 class = "info">Week {{ session['day']-1 }}/50 | Money:$<span id="money">{{ session['money'] }}</span> | <a id="nextday" onclick="update_button()" href="http://127.0.0.1:5000/location"><button type="button" class="btn btn-primary right">Next day</button></a></h1>
+<h1 class = "info">Week {{ session['day']-1 }}/40 | Money:$<span id="money">{{ session['money'] }}</span> | <a id="nextday" onclick="update_button()" href="http://127.0.0.1:5000/location"><button type="button" class="btn btn-primary right">Next week</button></a></h1>
 
     <div class="stocks" style="text-align: centre;">
         {# add all the items #}
@@ -40,4 +40,5 @@
 
             </div>
     </div>
+
 {% endblock %}

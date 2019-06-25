@@ -9,7 +9,6 @@ class items:
 
     def __init__(self, countries):
         self.countries = countries
-        pass
 
     # creates a random food with the corresponding image and a random price
     def create(self):
@@ -83,7 +82,6 @@ class items:
     def random_event(self, items):
         event = self.random_line('randomEvents.txt').replace(
             "\n", "").split(" | ")
-        print(event)
         if event[2] == "country":
             country = random.choice(self.countries)
             event = [event[0].replace("{}", country),

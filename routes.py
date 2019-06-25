@@ -7,6 +7,8 @@ import random
 import json
 import sys
 
+# please use firefox when reviewing the game
+
 
 @app.route("/name", methods=['GET', 'POST'])
 def name():
@@ -16,19 +18,25 @@ def name():
         name = form.name.data
         session['player']['name'] = name
         flash('Hello ' + name)
-        return redirect(url_for("location", country="Australia"))
+        return redirect(url_for("location"))
     return render_template("name.html", title="Welcome", form=form)
 
 
-@app.route("/nyse", methods=['GET', 'POST'])
+@app.route("/stocks", methods=['GET', 'POST'])
 def nyse():
+    # there is a chance I will run out of api requests, if so there should be photos of this working on the ist forum
+    form = nameform()
     if request.args.get('comps'):
         comps = request.args.get('comps').split(",")
         for i in range(len(comps)):
             comps[i] = stock(comps[i]).info()
+        print(comps)
     else:
-        comps = []
-    return render_template("location.html", title="The Stock Exchange", items=comps)
+        return redirect("/stocks?comps=apple")
+    if form.validate():
+        return redirect("/stocks?comps="+request.args.get('comps')+","+form.name.data)
+
+    return render_template("stocks.html", title="The Stock Exchange", items=comps, form=form)
 
 
 @app.route("/location")
@@ -62,8 +70,10 @@ def location():
         for i in range(6):
             listOfItems.append(items(countries).create())
         session['items'] = listOfItems
-    if session['day'] >= 52:
-        return "Game over"
+    if session['day'] == 41:
+        flash("Its the last day, make sure to sell everything to maximize your score")
+    if session['day'] >= 42:
+        return redirect(url_for("Gameover"))
     else:
         nextLoc = countries[countries.index(session['country'])-1]
         return render_template("location.html", title=session['country'], session=session, nextLoc=nextLoc)
@@ -72,6 +82,19 @@ def location():
 @app.route("/", methods=['GET', 'POST'])
 def index():
     return redirect(url_for("name"))
+
+
+@app.route("/gameover")
+def Gameover():
+    try:
+        if session['day'] >= 42:
+            score = str(session["money"])
+            session.clear()
+            return render_template("endgame.html", title="Endgame", score=score)
+        else:
+            return "You are not authorised to view this page yet"
+    except KeyError:
+        return "You are not authorised to view this page yet"
 
 
 @app.route("/debug")
@@ -119,12 +142,12 @@ def worker(data):
 def banking(data):
     data = json.loads(data)
     if int(data['transaction'][0])*int(data['transaction'][1]) < int(session["money"]):
-        print(session['bank']['amount'])
         session['bank']['amount'] += int(data['transaction'][0]) * \
             int(data['transaction'][1])
         session['bank'] = {"amount": session['bank']
                            ['amount'], "rate": session['bank']["rate"]}
-        print(session['bank']['amount'])
+        session["money"] -= int(data['transaction'][0]) * \
+            int(data['transaction'][1])
         return 'true'
     else:
         return 'false'
