@@ -1,5 +1,6 @@
+/* this is just the css, it dosent really need commenting its what makes the website look alright :) */
 html {
-    background: url("../images/background-stock1.jpg") no-repeat center center fixed;
+    font-family: 'Fira Mono', monospace;
     -webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;
@@ -7,29 +8,90 @@ html {
     background-color: #eeeeee;
 }
 
+
+
+.info {
+    text-align: center;
+    background-color: #eeeeee;
+    padding: 0.5%;
+    border-radius: 25px;
+}
+
+
 html,
 body {
+    font-family: 'Fira Mono', monospace;
     background-color: rgba(0, 0, 0, 0.1);
-    height: 100%;
+    bottom: 0;
+    top: 0px;
+}
+
+.error {
+    -webkit-text-fill-color: transparent;
+}
+
+.navbar {
+    background-color: rgba(15, 15, 15, 0.6);
+    border-color: rgba(219, 214, 214, 0.4);
 }
 
 .container {
-    height: 100%;
+    min-height: 100%;
 }
 
-.stock {
-    background-color: rgba(29, 185, 81, 0.9);
+.stocks {
+    width: 100%;
+    /* background-color: rgba(29, 185, 81, 0.8); */
+    padding: 3%;
+    border-radius: 30px;
+}
+
+.stock,
+.bank {
+    background-color: rgba(29, 185, 159, 0.7);
+    padding: 2%;
+
+}
+
+
+.stocks h1 {
+    text-align: center;
+}
+
+button {
+    text-align: center;
+}
+
+.stock h1,
+.bank h1 {
+    border-radius: 15px;
+    background-color: #eeeeee;
+    color: #000000;
+    text-align: center;
+}
+
+.title {
+    text-decoration: underline;
+    border-radius: 20px;
+    background-color: #eeeeee;
+    color: #000000;
+    text-align: center;
 }
 
 .bg-primary {
-    background-color: rgba(0, 77, 165, 0.9);
+    background-color: rgba(0, 77, 165, 0.7);
 }
 
 .bg-secondary {
-    background-color: rgba(49, 49, 49, 0.9);
+    background-color: rgba(49, 49, 49, 0.7);
 }
 
 .stock img {
-    height: 10%;
-    width: 10%;
+    height: 200px;
+    width: 200px;
+}
+
+.bank img {
+    width: 100%;
+    height: 350px;
 }

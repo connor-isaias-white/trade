@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% import 'bootstrap/wtf.html' as wtf %}
+{% block app_content %}
+    <div class="stocks" style="text-align: centre;">
+        <div class="stock col-md-offset-0">
+        <h1>Type in a company</h1>
+        {{ wtf.quick_form(form) }}
+        </div>
+        {% for item in items %}
+        <div class="stock col-md-offset-0">
+            <h1>{{ item['name'] }}</h1>
+             <img src="{{item["logo"]}}" class="img-fluid ${3|rounded-top,rounded-right,rounded-bottom,rounded-left,rounded-circle,|}" alt="image of {{ item["name"] }} (check connection)">
+            <h3>current price: $ {{ item["price"] }}</h3>
+        </div>
+        {% endfor %}
+    </div>
+{% endblock %}

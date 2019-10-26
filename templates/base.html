@@ -1,24 +1,48 @@
+{# connect to bootstrap #}
 {% extends "bootstrap/base.html" %}
+{# change background depending on the locatoin #}
+{% block html_attribs %}
+    style="background: url('{{url_for('.static', filename='images/'+title+'.jpg')}}') no-repeat center center fixed;"
+{% endblock html_attribs %}
+{# connect to all the css files and script files #}
 {% block styles %}
-{{super()}}
-<link rel="stylesheet"
-      href="{{url_for('.static', filename='css/style.css')}}">
+    <link rel="shortcut icon" href="{{ url_for('static', filename='icon/favicon.ico') }}">
+    {{super()}}
+    <!--<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">-->
+    <link rel="stylesheet"
+        href="{{url_for('.static', filename='css/style.css')}}">
+    <link href="https://fonts.googleapis.com/css?family=Fira+Mono:500&display=swap" rel="stylesheet">
 {% endblock %}
-
+{% block scripts %}
+    <script src="http://code.jquery.com/jquery-1.10.2.js"></script>
+     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js"></script>
+    <script src="{{url_for('.static', filename='js/game.js')}}" crossorigin="main"></script>
+    <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>-->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="boot"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+{% endblock %}
+{# if there is a title, put it in #}
 {% block title %}{% if title %}{{title}}- Trading game{% else %}Trading game{% endif %}{% endblock %}
-
 {% block content %}
-  <div class="container bg-primary">
-        <br>
+
+{# this is the black container #}
+<div class="container bg-secondary bg-dark">
+
+
+            <div class="title col-md-4 col-md-offset-4">
+                <h1>{% if title %}{{title}}{% else %}Trading game{% endif %}</h1>
+            </div>
         {% with messages = get_flashed_messages() %}
+        <br><br><br><br><br><br>
         {% if messages %}
             {% for message in messages %}
             <div class="alert alert-info" role="alert">{{ message }}</div>
             {% endfor %}
         {% endif %}
         {% endwith %}
-
         {# application content needs to be provided in the app_content block #}
-        {% block app_content %}{% endblock %}
+            {{nav.mynavbar.render()}}
+            {% block app_content %}{% endblock %}
     </div>
 {% endblock %}
+</html>

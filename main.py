@@ -1,12 +1,19 @@
 from flask_bootstrap import Bootstrap
-from flask import Flask
+from flask import Flask, session
 from config import Config
-from user import user
-app = Flask(__name__)
-app.config['SECRET_KEY'] = Config['SECRET_KEY']
-bootstrap = Bootstrap(app)
+from flask_wtf import CSRFProtect
+from flask_nav import Nav
 
-import routes
+app = Flask(__name__)
+csrf = CSRFProtect()
+nav = Nav()
+
+nav.init_app(app)
+app.config['SECRET_KEY'] = Config['SECRET_KEY']
+csrf.init_app(app)
+bootstrap = Bootstrap(app)
+import routes, navbar
+
 
 if __name__ == "__main__":
 

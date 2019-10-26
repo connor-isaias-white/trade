@@ -1,0 +1,477 @@
+{% extends "bootstrap/base.html" %}
+{% block content %}
+<html>
+
+<head>
+
+    <!-- The title of the tab -->
+
+    <title>Trading Game: Play</title>
+
+    <!-- The icon in the tab -->
+
+    <link rel="icon" href="{{url_for('.static', filename='universe/titleImage.jpg') }}">
+
+    <!-- Link to javascript -->
+
+    <script src="{{url_for('.static', filename='universe/javascript.js') }}"></script>
+
+<!-- Link to style sheet -->
+
+    <link href="{{url_for('.static', filename='universe/style.css') }}" rel="stylesheet" type="text/css" />
+</head>
+
+<body>
+
+    <!-- The floating rectangle on the top left of the page -->
+
+    <div class="sidebar">
+        <ul>
+
+            <!-- List of the quantity of materials that you possess -->
+
+            <li class="BronzeColour">Celestial Bronze: <span id="CelestialBronzeQty">15</span></li>
+            <li class="PlutoniumColour">Plutonium: <span id="PlutoniumQty">10</span></li>
+            <li class="VibraniumColour">Vibranium: <span id="VibraniumQty">5</span></li>
+            <li class="LathrixiumColour">Lathrixium: <span id="LathrixiumQty">1</span></li>
+            <br />
+
+            <!-- Amount of food -->
+
+            <li class="FoodColour">Food: <span id="FoodQty">100</span></li>
+
+            <!-- How much food you ate yesterday -->
+
+            <li class="HungerColour">Expected Hunger: <span id="eatFood">10</span></li>
+            <br />
+
+            <!-- Information about money and networth -->
+
+            <li class="moneyColour" style='padding-top: 5px;'>Wealth: $$<span id="wealth">200</span></li>
+            <li style='color:rebeccapurple; padding-top: 5px;'>Net Worth: $$<span id="netWorth">1820</span></li>
+        </ul>
+    </div>
+
+    <!-- The container is the large rectangle that is directly centered in the page and takes up half the page. All the context is in there (except the side bar) -->
+
+    <div id="container">
+
+        <!-- Main heading -->
+
+        <h1>Universe Trader</h1>
+
+        {{nav.mynavbar.render()}}
+
+
+        <!-- The context is all the main information excluding the sidebar and the heading -->
+
+        <div id="context">
+
+            <!-- The aim (this disappears after day one) -->
+
+            <div id="hello"><span id="Away"><p><div class="color1">Aim: </div> <div class="aim">To Survive 100 days and get a high score.</div></p></span></div>
+            <p>
+
+                <!-- Telling the user the day -->
+
+                <div class="color1">The current day number is: </div>
+                <div class="white"><span id="day">1</span></div>
+                &nbsp;
+                <!-- Next day button (Advances the day) -->
+
+                <div id="Buttontype1"><button onclick="advanceDay();">Next Day</button></div>
+
+                <!-- Try again button (allows the user to restart by reloading the page) -->
+
+                <div id="Buttontype2"><button onclick="Restart();">Try again?</button></div>
+            </p>
+            <p>
+                <br />
+
+                <!-- The 2nd container is a gray transperent rectangle that surrounds the area in which the user can buy and sell -->
+
+                <div id="container2">
+                    <br />
+
+                    <!-- The materials -->
+
+                    <div id="materials">
+
+                        <!-- The third container is the container that surounds the each indervidual material (including buttons and pictures) -->
+
+                        <div id="container3">
+
+                            <!-- The Fourth container is an invisible container that encloses the text buttons and pictures inside the third container  -->
+
+                            <div id="container4">
+
+                                <!-- Colour coded title for Celestial Bronze -->
+
+                                <div class="BronzeColour">Celestial Bronze Price:
+
+                                    <!-- Current cost for Celestial Bronze -->
+
+                                    <div class="moneyColour">$$<span id="CelestialBronzePrice">20</span></div>
+                                </div>
+
+                                <!-- Img of Celestial Bronze -->
+
+                                <img src="{{url_for('.static', filename='universe/celestialBronzeImage.jpg') }}" style="width:150px; height: 150px; display: inline; float: left;">
+
+                                <!-- The Celestial Bronze selling and buying buttons -->
+
+                                <div id="sellAndBuy">
+
+                                    <!-- The Celestial Bronze selling buttons -->
+
+                                    <div id="sell">
+
+                                        <!-- Selling Celestial Bronze subheading -->
+
+                                        <br /> Sell Celestial Bronze:
+
+                                        <!-- Sell one Celestial Bronze -->
+
+                                        <div class="buttons"><button id="sellCelestialBronze" value="Sell" onclick="sellStuff('CelestialBronze');">-1</button>
+
+                                            <!-- Sell five Celestial Bronzes -->
+
+                                            <button id="sellCelestialBronze" value="Sell" onclick="sellStuffx('CelestialBronze');">-5</button>
+
+                                            <!-- Sell as much Celestial Bronze you own -->
+
+                                            <button id="sellCelestialBronze" value="Sell" onclick="sellStuffMax('CelestialBronze');">-max</button>
+                                        </div>
+                                    </div>
+
+                                    <!-- The Celestial Bronze Buying buttons -->
+
+                                    <div id="buy">
+
+                                        <!-- Buying Celestial Bronze subheading -->
+
+                                        <br /> Buy Celestial Bronze:
+
+                                        <!-- Buy one Celestial Bronze -->
+
+                                        <div class="buttons"><button id="buyCelestialBronze" value="Buy" onclick="buyStuff('CelestialBronze');">+1</button>
+
+                                            <!-- Buy five Celestial Bronzes -->
+
+                                            <button id="buyCelestialBronze" value="Buy" onclick="buyStuffx('CelestialBronze');">+5</button>
+
+                                            <!-- Buy as much Celestial Bronze as you can afford -->
+
+                                            <button id="buyCelestialBronze" value="Buy" onclick="buyStuffMax('CelestialBronze');">+max</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+            </p>
+            </div>
+            <p>
+
+                <!-- The third container is the container that surounds the each indervidual material (including buttons and pictures) -->
+
+                <div id="container3">
+
+                    <!-- The Fourth container is an invisible container that encloses the text buttons and pictures inside the third container  -->
+
+                    <div id="container4">
+
+                        <!-- Colour coded title for Plutonium -->
+
+                        <div class="PlutoniumColour">Plutonium Price:
+
+                            <!-- Current cost of Plutonium -->
+
+                            <div class="moneyColour">$$<span id="PlutoniumPrice">40</span></div>
+                        </div>
+
+                        <!-- An image of Plutonium -->
+
+                        <img src="{{url_for('.static', filename='universe/plutoniumImage.jpg') }}" style="width:150px; height: 150px; display: inline; float:left;">
+
+                        <!-- The sell and buy buttons for Plutonium -->
+
+                        <div id="sellAndBuy">
+
+                            <!-- The sell buttons for Plutonium -->
+
+                            <div id="sell">
+
+                                <!-- The sub heading for selling Plutonium -->
+
+                                <br /> Sell Plutonium:
+
+                                <!-- Button for selling one Plutonium -->
+
+                                <div class="buttons"><button id="sellPlutonium" value="Sell" onclick="sellStuff('Plutonium');">-1</button>
+
+                                    <!-- Button for selling five Plutonium -->
+
+                                    <button id="sellPlutonium" value="Sell" onclick="sellStuffx('Plutonium');">-5</button>
+
+                                    <!-- Button for selling as much Plutonium you own -->
+
+                                    <button id="selllPlutonium" value="Sell" onclick="sellStuffMax('Plutonium');">-max</button>
+                                </div>
+                            </div>
+
+                            <!-- The buy buttons for Plutonium -->
+
+                            <div id="buy">
+
+                                <!-- The subheading for Buying Plutonium-->
+
+                                <br /> Buy Plutonium:
+
+                                <!-- Button for buying one Plutonium -->
+
+                                <div class="buttons"><button id="buyPlutonium" value="Buy" onclick="buyStuff('Plutonium');">+1</button>
+
+                                    <!-- Button for buying five Plutoniums -->
+
+                                    <button id="buyPlutonium" value="Buy" onclick="buyStuffx('Plutonium');">+5</button>
+
+                                    <!-- Button for buying as much Plutonium as you can afford -->
+
+                                    <button id="buyPlutonium" value="Buy" onclick="buyStuffMax('Plutonium');">+max</button>
+                                </div>
+                            </div>
+                        </div>
+            </p>
+
+            </div>
+            </div>
+            <p>
+
+                <!-- The third container is the container that surounds the each indervidual material (including buttons and pictures) -->
+
+                <div id="container3">
+
+                    <!-- The Fourth container is an invisible container that encloses the text buttons and pictures inside the third container  -->
+
+                    <div id="container4">
+
+                        <!-- Colour coded title for Vibranium -->
+
+                        <div class="VibraniumColour">Vibranium Price:
+
+                            <!-- Current cost of Vibranium -->
+
+                            <div class="moneyColour">$$<span id="VibraniumPrice">50</span></div>
+                        </div>
+
+                        <!-- An image of Vibranium -->
+
+                        <img src="{{url_for('.static', filename='universe/vibraniumImage.jpg') }}" style="width:150px; height: 150px; display: inline; float:left;">
+
+                        <!-- The sell and buy buttons for Vibranium -->
+
+                        <div id="sellAndBuy">
+                            <!-- The sell buttons for Vibranium -->
+                            <div id="sell">
+
+                                <!-- A subheading for selling Vibranium -->
+                                <br />Sell Vibranium:
+
+                                <!-- A button for selling one Vibranium -->
+
+                                <div class="buttons"><button id="sellVibranium" value="Sell" onclick="sellStuff('Vibranium');">-1</button>
+
+                                    <!-- A button for selling 5 Vibranium -->
+
+                                    <button id="sellVibranium" value="Sell" onclick="sellStuffx('Vibranium');">-5</button>
+
+                                    <!-- A button for selling as much Vibranium you own -->
+
+                                    <button id="sellVibranium" value="Sell" onclick="sellStuffMax('Vibranium');">-max</button>
+                                </div>
+                            </div>
+
+                            <!-- The buy buttons for Vibranium -->
+
+                            <div id="buy">
+
+                                <!-- A subheading for buying Vibranium -->
+
+                                <br /> Buy Vibranium:
+
+                                <!-- A button for buying one Vibranium -->
+
+                                <div class="buttons"><button id="buyVibranium" value="Buy" onclick="buyStuff('Vibranium');">+1</button>
+
+                                    <!-- A button for buying five Vibranium -->
+
+                                    <button id="buyVibranium" value="Buy" onclick="buyStuffx('Vibranium');">+5</button>
+
+                                    <!-- A button for buying as much Vibranium as you can afford -->
+
+                                    <button id="buyVibranium" value="Buy" onclick="buyStuffMax('Vibranium');">+max</button>
+                                </div>
+                            </div>
+                        </div>
+            </p>
+            <p>
+                </div>
+                </div>
+
+                <!-- The third container is the container that surounds the each indervidual material (including buttons and pictures) -->
+
+                <div id="container3">
+
+                    <!-- The Fourth container is an invisible container that encloses the text buttons and pictures inside the third container  -->
+
+                    <div id="container4">
+
+                        <!-- Colour coded title for Lathrixium -->
+
+                        <div class="LathrixiumColour">Lathrixium Price:
+
+                            <!-- The current cost of Lathrixium -->
+
+                            <div class="moneyColour">$$<span id="LathrixiumPrice">170</span></div>
+                        </div>
+
+                        <!-- An image of Lathrixium -->
+
+                        <img src="{{url_for('.static', filename='universe/lathrixiumImage.jpg') }}" style="width:150px; height: 150px; display: inline; float:left;">
+
+                        <!-- The sell and buy buttons for Lathrixium -->
+
+                        <div id="sellAndBuy">
+
+                            <!-- Sell buttons for Lathrixium -->
+
+                            <div id="sell">
+
+                                <!-- Subheading for selling Lathrixium -->
+
+                                <br /> Sell Lathrixium:
+
+                                <!-- Button for selling one Lathrixium -->
+
+                                <div class="buttons"><button id="sellLathrixium" value="Sell" onclick="sellStuff('Lathrixium');">-1</button>
+
+                                    <!-- Button for selling five Lathrixium -->
+
+                                    <button id="sellLathrixium" value="Sell" onclick="sellStuffx('Lathrixium');">-5</button>
+
+                                    <!-- Button for selling as much Lathrixium as you own -->
+
+                                    <button id="selllLathrixium" value="Sell" onclick="sellStuffMax('Lathrixium');">-max</button>
+                                </div>
+                            </div>
+
+                            <!-- Buy buttons for Lathrixium -->
+
+                            <div id="buy">
+
+                                <!-- Subheading for buying Lathrixium-->
+
+                                <br /> Buy Lathrixium:
+
+                                <!-- Button for buying one Lathirixium -->
+
+                                <div class="buttons"><button id="buyLathrixium" value="Buy" onclick="buyStuff('Lathrixium');">+1</button>
+
+                                    <!-- Button for buying five Lathrixium -->
+
+                                    <button id="buyLathrixium" value="Buy" onclick="buyStuffx('Lathrixium');">+5</button>
+
+                                    <!-- Button for buying as much Lathrixium as you can afford -->
+
+                                    <button id="buyLathrixium" value="Buy" onclick="buyStuffMax('Lathrixium');">+max</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <p>
+
+                    <!-- The third container is the container that surounds the each indervidual material (including buttons and pictures) -->
+
+                    <div id="container3">
+
+                        <!-- The Fourth container is an invisible container that encloses the text buttons and pictures inside the third container  -->
+
+                        <div id="container4">
+
+                            <!-- Colour coded title for food -->
+
+                            <div class="FoodColour">Food Price:
+
+                                <!-- The current cost of food -->
+
+                                <div class="moneyColour">$$<span id="FoodPrice">6</span></div>
+                            </div>
+
+                            <!-- An image of food -->
+
+                            <img src="{{url_for('.static', filename='universe/foofImage.jpg') }}" style="width:150px; height: 150px; display: inline; float:left;">
+                            <div id="sellAndBuy">
+
+                                <!-- Buy buttons for food -->
+
+                                <div id="buy">
+
+                                    <!-- Subheading for buying food -->
+
+                                    <br /> Buy Food:
+
+                                    <!-- Button for buying one food -->
+
+                                    <div class="buttons"><button id="buyFood" value="Buy" onclick="buyStuff('Food');">+1</button>
+
+                                        <!-- Button for buying five food -->
+
+                                        <button id="buyFood" value="Buy" onclick="buyStuffx('Food');">+5</button>
+
+                                        <!-- Button for buying as much food as you can afford -->
+
+                                        <button id="buyFood" value="Buy" onclick="buyStuffMax('Food');">+max</button>
+                                    </div>
+                                </div>
+                            </div>
+                </p>
+                </div>
+                </div>
+            </p>
+
+            <!-- Extra statistics -->
+
+            <div id="otherThings">
+
+                <!-- A dark grey container for the statistics -->
+
+                <div id="otherOtherThings">
+
+                    <p style="color:#1aa386;">
+
+                        <!-- Statistic on how much money you have spent on Materials and food this game -->
+
+                        Total spent: <span style="color:#008c3a;">$$<span id="totalSpent">0</span></span>
+
+                        <!-- Statistic on how much money you have gotten by selling Materials this game -->
+
+                        <br /> Total sold: <span style="color:#008c3a;">$$<span id="totalSold">0</span></span>
+                    </p>
+                    <p style="color:#1a7aa3;">
+
+                        <!-- Statistic on how much money you have made/lossed today -->
+
+                        Profit today: <span style="color:#008c3a;">$$<span id="profitToday">0</span></span>
+                    </p>
+
+                    <!-- Statistic on how many deals you have made -->
+
+                    <p style="color:#1a51a3;">Deals made: <span style="color: #f7e898;" id="deals">0</span></p>
+                </div>
+            </div>
+            </div>
+            </div>
+</body>
+
+</html>
+{% endblock %}
